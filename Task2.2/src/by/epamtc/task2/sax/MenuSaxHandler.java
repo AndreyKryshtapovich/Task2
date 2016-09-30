@@ -1,6 +1,5 @@
 package by.epamtc.task2.sax;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.xml.sax.Attributes;
@@ -10,17 +9,14 @@ import org.xml.sax.helpers.DefaultHandler;
 import by.epamtc.task2.entity.Dish;
 import by.epamtc.task2.entity.Menu;
 import by.epamtc.task2.entity.MenuTagName;
+import by.epamtc.task2.parser.helper.StringConstants;
 
 public class MenuSaxHandler extends DefaultHandler {
 	private Menu menu = new Menu();
 	private Dish dish;
 	private List<Dish> currentList;
 	private StringBuilder text;
-	private static final String hotDishes = "hot-dishes";
-	private static final String coldDishes = "cold-dishes";
-	private static final String id = "id";
-	private static final String breakfasts = "breakfasts";
-	private static final String dishStr = "dish";
+	
 	
 	
 	public Menu getMenu() {
@@ -42,21 +38,21 @@ public class MenuSaxHandler extends DefaultHandler {
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		text = new StringBuilder();
 		
-		if (localName.equals(coldDishes)) {
+		if (localName.equals(StringConstants.coldDishes)) {
 			currentList = menu.getColdDishList();
 		}else{
-			if(localName.equals(hotDishes)){
+			if(localName.equals(StringConstants.hotDishes)){
 				currentList = menu.getHotDishList();
 			}else{
-				if(localName.equals(breakfasts)){
+				if(localName.equals(StringConstants.breakfasts)){
 					currentList = menu.getBreakfastList();
 				}
 			}
 		}
 		
-		if (localName.equals(dishStr)) {
+		if (localName.equals(StringConstants.dishStr)) {
 			dish = new Dish();
-			dish.setId(attributes.getValue(id));
+			dish.setId(attributes.getValue(StringConstants.id));
 		}
 		
 	}

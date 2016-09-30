@@ -18,7 +18,14 @@ public class Attribute {
 	}
 	@Override
 	public String toString() {
-		return "Attribute [name=" + name + ", value=" + value + "]";
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getName());
+		sb.append(":");
+		sb.append("name = < ");
+		sb.append(this.getName() + " >, ");
+		sb.append("value = < ");
+		sb.append(this.getValue() + " >. ");
+		return sb.toString();
 	}
 	@Override
 	public int hashCode() {

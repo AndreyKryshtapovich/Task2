@@ -7,6 +7,7 @@ import by.epamtc.task2domparser.entity.Document;
 import by.epamtc.task2domparser.entity.Element;
 import by.epamtr.task2mydom.entity.Dish;
 import by.epamtr.task2mydom.entity.Menu;
+import by.epamtr.task2mydom.parser.helper.StringConstants;
 
 
 public class MyDomHelper {
@@ -17,13 +18,13 @@ public class MyDomHelper {
 		Menu menu = new Menu();
 		Element root = document.getTree();
 		
-		Element coldDishElement = (Element) root.getElementsByName("cd:cold-dishes").get(0);
-		Element hotDishElement = (Element) root.getElementsByName("cd:hot-dishes").get(0);
-		Element breakfastElement = (Element) root.getElementsByName("cd:breakfasts").get(0);
+		Element coldDishElement = (Element) root.getElementsByName(StringConstants.qNameColdDishes).get(0);
+		Element hotDishElement = (Element) root.getElementsByName(StringConstants.qNameHotDishes).get(0);
+		Element breakfastElement = (Element) root.getElementsByName(StringConstants.qNameBreakfasts).get(0);
 		
-		List<Element> colDishList = coldDishElement.getElementsByName("cd:dish");
-		List<Element> hotDishList = hotDishElement.getElementsByName("cd:dish");
-		List<Element> breakfastList = breakfastElement.getElementsByName("cd:dish");
+		List<Element> colDishList = coldDishElement.getElementsByName(StringConstants.qNameDishStr);
+		List<Element> hotDishList = hotDishElement.getElementsByName(StringConstants.qNameDishStr);
+		List<Element> breakfastList = breakfastElement.getElementsByName(StringConstants.qNameDishStr);
 		
 		menu.setColdDishList(listParse(colDishList));
 		menu.setHotDishList(listParse(hotDishList));
@@ -38,11 +39,11 @@ public class MyDomHelper {
 			Dish dish = new Dish();
 			Element dishElement = (Element) currentList.get(i);
 			dish.setId(dishElement.getAttributes().get(0).getValue());
-			dish.setPhoto(getSingleChild(dishElement,"cd:photo").getText().getTextContent());
-			dish.setName(getSingleChild(dishElement,"cd:name").getText().getTextContent());
-			dish.setDescription(getSingleChild(dishElement,"cd:description").getText().getTextContent());
-			dish.setPortion(getSingleChild(dishElement,"cd:portion").getText().getTextContent());
-			dish.setPrice(Integer.parseInt(getSingleChild(dishElement,"cd:price").getText().getTextContent()));
+			dish.setPhoto(getSingleChild(dishElement,StringConstants.qNamePhoto).getText().getTextContent());
+			dish.setName(getSingleChild(dishElement,StringConstants.qName).getText().getTextContent());
+			dish.setDescription(getSingleChild(dishElement,StringConstants.qNameDescription).getText().getTextContent());
+			dish.setPortion(getSingleChild(dishElement,StringConstants.qNamePortion).getText().getTextContent());
+			dish.setPrice(Integer.parseInt(getSingleChild(dishElement,StringConstants.qNamePrice).getText().getTextContent()));
 			list.add(dish);
 		}
 		return list;

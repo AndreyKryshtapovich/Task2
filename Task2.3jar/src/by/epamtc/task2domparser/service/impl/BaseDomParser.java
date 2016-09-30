@@ -22,6 +22,9 @@ import by.epamtc.task2domparser.service.DomParser;
 public class BaseDomParser implements DomParser {
 	private static final String regexStartEnd = "(<((/?)([\\w:\\-]+)((([ \\s]+)([\\w:\\-]+)=(\"[\\.\\w\\-:/ ]+\"))*))>)|"
 			+ "([/à-ÿÀ-ß\\., :\\w\\-&&[^<>]]+<)";
+	private static final String charset = "UTF-8";
+	private static final String slash = "/";
+	private static final String beginTag = "<";
 
 	public Document parse(String fileName) {
 		PushbackReader pb = null;
@@ -30,7 +33,7 @@ public class BaseDomParser implements DomParser {
 
 		try {
 			Path path = Paths.get(fileName);
-			BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"));
+			BufferedReader br = Files.newBufferedReader(path, Charset.forName(charset));
 			pb = new PushbackReader(br);
 
 			Pattern startEnd = Pattern.compile(regexStartEnd);
@@ -53,7 +56,7 @@ public class BaseDomParser implements DomParser {
 						addAttributes(stackOfElements, matcher);
 					}
 					if (matcher.group(10) != null) {
-						s = "<";
+						s = beginTag;
 						addText(stackOfElements, matcher);
 					}
 				}
@@ -78,8 +81,8 @@ public class BaseDomParser implements DomParser {
 
 	private static void startElement(List<Element> stackOfElements, Matcher matcher) {
 		Element element = new Element();
-		if (matcher.group(1).contains("/")) {
-			element.setTagName("/" + matcher.group(4));
+		if (matcher.group(1).contains(slash)) {
+			element.setTagName(slash + matcher.group(4));
 		} else {
 			element.setTagName(matcher.group(4));
 		}
@@ -97,7 +100,7 @@ public class BaseDomParser implements DomParser {
 
 	private static void addText(List<Element> stackOfElements, Matcher matcher) {
 		Text text = new Text();
-		text.setTextContent(matcher.group(10).substring(0, matcher.group(10).indexOf('<')));
+		text.setTextContent(matcher.group(10).substring(0, matcher.group(10).indexOf(beginTag)));
 		stackOfElements.get(stackOfElements.size() - 1).setText(text);
 
 	}
@@ -109,7 +112,7 @@ public class BaseDomParser implements DomParser {
 		document.setTree((stack2.get(0)));
 		int i2 = 0;
 		for (int i = 0; i < stackOfElements.size() - 1; i++) {
-			if (!(stackOfElements.get(i + 1).getTagName().equals("/" + stack2.get(i2).getTagName()))) {
+			if (!(stackOfElements.get(i + 1).getTagName().equals(slash + stack2.get(i2).getTagName()))) {
 				stack2.add(stackOfElements.get(i + 1));
 				stack2.get(i2).getChilds().add(stackOfElements.get(i + 1));
 				i2 = i2 + 1;

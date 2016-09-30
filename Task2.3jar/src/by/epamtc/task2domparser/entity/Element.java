@@ -64,8 +64,18 @@ public class Element {
 
 	@Override
 	public String toString() {
-		return "Element [tagName=" + tagName + ", attributes=" + attributes + ", childs=" + childs + ", text=" + text
-				+ "]";
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getName());
+		sb.append(":");
+		sb.append("tagName = < ");
+		sb.append(this.getTagName() + " >, ");
+		sb.append("attributes = < ");
+		sb.append(this.getAttributes() + " >, ");
+		sb.append("childs = < ");
+		sb.append(this.getChilds() + " >, ");
+		sb.append("text = < ");
+		sb.append(this.getText() + " >. ");
+		return sb.toString();
 	}
 
 

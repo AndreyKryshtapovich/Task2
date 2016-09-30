@@ -38,7 +38,12 @@ public class Text {
 
 	@Override
 	public String toString() {
-		return "Text [textContent=" + textContent + "]";
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getName());
+		sb.append(":");
+		sb.append("textContent = < ");
+		sb.append(this.getTextContent() + " >. ");
+		return sb.toString();
 	}
 	
 

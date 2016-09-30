@@ -11,8 +11,22 @@ public class Dish {
 	
 	@Override
 	public String toString() {
-		return "Dish [id=" + id + ", photo=" + photo + ", name=" + name + ", description=" + description + ", portion="
-				+ portion + ", price=" + price + "]";
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getName());
+		sb.append(":");
+		sb.append("id = < ");
+		sb.append(this.getId() + " >, ");
+		sb.append("photo = < ");
+		sb.append(this.getPhoto() + " >, ");
+		sb.append("name = < ");
+		sb.append(this.getName() + " >, ");
+		sb.append("description = < ");
+		sb.append(this.getDescription() + " >, ");
+		sb.append("portion = < ");
+		sb.append(this.getPortion() + " >, ");
+		sb.append("price = < ");
+		sb.append(this.getPrice() + " >.");
+		return sb.toString();
 	}
 	@Override
 	public int hashCode() {

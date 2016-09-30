@@ -8,6 +8,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import by.epamtc.task2.entity.Menu;
+import by.epamtc.task2.parser.helper.StringConstants;
 import by.epamtc.task2.view.View;
 
 public class SAXStart {
@@ -17,7 +18,7 @@ public class SAXStart {
 			XMLReader reader = XMLReaderFactory.createXMLReader();
 			MenuSaxHandler handler = new MenuSaxHandler();
 			reader.setContentHandler(handler);
-			reader.parse(new InputSource("src/res/Menu.xml"));
+			reader.parse(new InputSource(StringConstants.resources));
 			Menu menu = handler.getMenu();
 			View.displayMenu(menu);
 		} catch (SAXException e) {

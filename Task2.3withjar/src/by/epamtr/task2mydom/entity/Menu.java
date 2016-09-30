@@ -10,8 +10,16 @@ public class Menu {
 	
 	@Override
 	public String toString() {
-		return "Menu [coldDishList=" + coldDishList + ", hotDishList=" + hotDishList + ", breakfastList="
-				+ breakfastList + "]";
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getName());
+		sb.append(":");
+		sb.append("coldDishList = < ");
+		sb.append(this.getColdDishList() + " >, ");
+		sb.append("hotDishList = < ");
+		sb.append(this.getHotDishList() + " >, ");
+		sb.append("breakfastList = < ");
+		sb.append(this.getBreakfastList() + " >. ");
+		return sb.toString();
 	}
 
 	@Override

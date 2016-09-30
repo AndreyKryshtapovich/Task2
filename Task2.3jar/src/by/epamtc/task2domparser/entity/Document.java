@@ -3,12 +3,18 @@ package by.epamtc.task2domparser.entity;
 
 
 public class Document {
+	
+	private Element tree = new Element();
+	
 	@Override
 	public String toString() {
-		return "Document [tree=" + tree + "]";
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getName());
+		sb.append(":");
+		sb.append("tree = < ");
+		sb.append(this.getTree() + " >. ");
+		return sb.toString();
 	}
-
-	private Element tree = new Element();
 
 	public Element getTree() {
 		return tree;
